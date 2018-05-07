@@ -13,6 +13,7 @@ import format from './utils/format';
 import removeLeadingSlash from './utils/removeLeadingSlash';
 import trim from './utils/trim';
 import loadGA from './utils/loadGA';
+import loadGTM from './utils/loadGTM';
 
 import warn from './utils/console/warn';
 import log from './utils/console/log';
@@ -23,10 +24,18 @@ let _debug = false;
 let _titleCase = true;
 let _testMode = false;
 let _alwaysSendToDefaultTracker = true;
+let savedEvents = [];
 
 const internalGa = (...args) => {
   if (_testMode) return TestModeAPI.ga(...args);
-  if (!window.ga) return warn('ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually');
+  if (!window.ga) {
+    savedEvents.push(args);
+    return null;
+  }
+  if (savedEvents.length) {
+    savedEvents.map(savedArgs => window.ga(...savedArgs));
+    savedEvents = [];
+  }
   return window.ga(...args);
 };
 
@@ -57,6 +66,11 @@ function _initialize(gaTrackingID, options) {
     return;
   }
 
+  if (options && typeof options === 'object' && options.gtmTrackingId) {
+    warn('GTM initializes the GA');
+    return;
+  }
+
   if (options) {
     if (options.debug && options.debug === true) {
       _debug = true;
@@ -74,6 +88,18 @@ function _initialize(gaTrackingID, options) {
   }
 }
 
+function getTrackingId(configsOrTrackingId) {
+  if (typeof configsOrTrackingId === 'string') {
+    return configsOrTrackingId;
+  }
+  if (Array.isArray(configsOrTrackingId) && configsOrTrackingId.length) {
+    const config = configsOrTrackingId.find(item => item.trackingId);
+    if (config && typeof config !== 'object') {
+      return config.trackingId;
+    }
+  }
+  return null;
+}
 
 export function initialize(configsOrTrackingId, options) {
   if (options && options.testMode === true) {
@@ -82,8 +108,12 @@ export function initialize(configsOrTrackingId, options) {
     if (typeof window === 'undefined') {
       return false;
     }
-
-    loadGA(options);
+    const trackingId = getTrackingId(configsOrTrackingId);
+    if (options && typeof options === 'object' && options.gtmTrackingId) {
+      loadGTM(trackingId, options);
+    } else {
+      loadGA(options);
+    }
   }
 
   _alwaysSendToDefaultTracker = (options && typeof options.alwaysSendToDefaultTracker === 'boolean')

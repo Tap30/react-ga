@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("react"), require("prop-types")) : factory(root["react"], root["prop-types"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_12__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_13__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -149,19 +149,23 @@ var _loadGA = __webpack_require__(7);
 
 var _loadGA2 = _interopRequireDefault(_loadGA);
 
+var _loadGTM = __webpack_require__(8);
+
+var _loadGTM2 = _interopRequireDefault(_loadGTM);
+
 var _warn = __webpack_require__(0);
 
 var _warn2 = _interopRequireDefault(_warn);
 
-var _log = __webpack_require__(8);
+var _log = __webpack_require__(9);
 
 var _log2 = _interopRequireDefault(_log);
 
-var _testModeAPI = __webpack_require__(9);
+var _testModeAPI = __webpack_require__(10);
 
 var _testModeAPI2 = _interopRequireDefault(_testModeAPI);
 
-var _OutboundLink = __webpack_require__(10);
+var _OutboundLink = __webpack_require__(11);
 
 var _OutboundLink2 = _interopRequireDefault(_OutboundLink);
 
@@ -185,13 +189,30 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var _debug = false;
 var _titleCase = true;
 var _testMode = false;
+var _alwaysSendToDefaultTracker = true;
+var savedEvents = [];
 
 var internalGa = function internalGa() {
-  var _window;
+  var _window2;
 
-  if (_testMode) return _testModeAPI2.default.ga.apply(_testModeAPI2.default, arguments);
-  if (!window.ga) return (0, _warn2.default)('ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually');
-  return (_window = window).ga.apply(_window, arguments);
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  if (_testMode) return _testModeAPI2.default.ga.apply(_testModeAPI2.default, args);
+  if (!window.ga) {
+    savedEvents.push(args);
+    return null;
+  }
+  if (savedEvents.length) {
+    savedEvents.map(function (savedArgs) {
+      var _window;
+
+      return (_window = window).ga.apply(_window, _toConsumableArray(savedArgs));
+    });
+    savedEvents = [];
+  }
+  return (_window2 = window).ga.apply(_window2, args);
 };
 
 function _format(s) {
@@ -199,8 +220,8 @@ function _format(s) {
 }
 
 function _gaCommand(trackerNames) {
-  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    args[_key - 1] = arguments[_key];
+  for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+    args[_key2 - 1] = arguments[_key2];
   }
 
   var command = args[0];
@@ -210,7 +231,7 @@ function _gaCommand(trackerNames) {
       return;
     }
 
-    internalGa.apply(undefined, args);
+    if (_alwaysSendToDefaultTracker || !Array.isArray(trackerNames)) internalGa.apply(undefined, args);
     if (Array.isArray(trackerNames)) {
       trackerNames.forEach(function (name) {
         internalGa.apply(undefined, _toConsumableArray([name + '.' + command].concat(args.slice(1))));
@@ -222,6 +243,11 @@ function _gaCommand(trackerNames) {
 function _initialize(gaTrackingID, options) {
   if (!gaTrackingID) {
     (0, _warn2.default)('gaTrackingID is required in initialize()');
+    return;
+  }
+
+  if (options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object' && options.gtmTrackingId) {
+    (0, _warn2.default)('GTM initializes the GA');
     return;
   }
 
@@ -242,6 +268,21 @@ function _initialize(gaTrackingID, options) {
   }
 }
 
+function getTrackingId(configsOrTrackingId) {
+  if (typeof configsOrTrackingId === 'string') {
+    return configsOrTrackingId;
+  }
+  if (Array.isArray(configsOrTrackingId) && configsOrTrackingId.length) {
+    var config = configsOrTrackingId.find(function (item) {
+      return item.trackingId;
+    });
+    if (config && (typeof config === 'undefined' ? 'undefined' : _typeof(config)) !== 'object') {
+      return config.trackingId;
+    }
+  }
+  return null;
+}
+
 function initialize(configsOrTrackingId, options) {
   if (options && options.testMode === true) {
     _testMode = true;
@@ -249,9 +290,15 @@ function initialize(configsOrTrackingId, options) {
     if (typeof window === 'undefined') {
       return false;
     }
-
-    (0, _loadGA2.default)(options);
+    var trackingId = getTrackingId(configsOrTrackingId);
+    if (options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object' && options.gtmTrackingId) {
+      (0, _loadGTM2.default)(trackingId, options);
+    } else {
+      (0, _loadGA2.default)(options);
+    }
   }
+
+  _alwaysSendToDefaultTracker = options && typeof options.alwaysSendToDefaultTracker === 'boolean' ? options.alwaysSendToDefaultTracker : true;
 
   if (Array.isArray(configsOrTrackingId)) {
     configsOrTrackingId.forEach(function (config) {
@@ -272,8 +319,8 @@ function initialize(configsOrTrackingId, options) {
  * Returns the original GA object.
  */
 function ga() {
-  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    args[_key2] = arguments[_key2];
+  for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    args[_key3] = arguments[_key3];
   }
 
   if (args.length > 0) {
@@ -902,13 +949,44 @@ exports.default = function (options) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+exports.default = function (gaTrackingId, options) {
+  // https://developers.google.com/analytics/devguides/collection/gtagjs/
+  /* eslint-disable */
+  (function (w, d, s, l, i, k, m, g) {
+    w[l] = w[l] || [];
+    w[g] = function () {
+      w[l].push(arguments);
+    };
+    w[g]({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    w[g]('config', k);
+    var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src = m + '?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', options && options.gtmTrackingId, gaTrackingId, options && options.gtmAddress ? options.gtmAddress : 'https://www.googletagmanager.com/gtm.js', 'gtag');
+  /* eslint-enable */
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = log;
 function log(s) {
   console.info('[react-ga]', s);
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -931,7 +1009,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -945,11 +1023,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(11);
+var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(12);
+var _propTypes = __webpack_require__(13);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1042,16 +1120,16 @@ OutboundLink.trackLink = function () {
 exports.default = OutboundLink;
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_11__;
-
-/***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_12__;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_13__;
 
 /***/ })
 /******/ ]);
