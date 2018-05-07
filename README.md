@@ -17,12 +17,12 @@ If you use `react-ga` too, we'd love your feedback. Feel free to file [issues, i
 
 With [npm](https://www.npmjs.com/):
 ```bash
-npm install react-ga --save
+npm install react-ga-gtm --save
 ```
 
 With [bower](http://bower.io/):
 ```bash
-bower install react-ga --save
+bower install react-ga-gtm --save
 ```
 
 Note that [React](https://github.com/facebook/react) >= 0.14.0 is needed in order to use the `<OutboundLink>` component.
@@ -34,7 +34,7 @@ Note that [React](https://github.com/facebook/react) >= 0.14.0 is needed in orde
 Initializing GA and Tracking Pageviews:
 
 ```js
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga-gtm';
 ReactGA.initialize('UA-000000-01');
 ReactGA.pageview(window.location.pathname + window.location.search);
 ```
