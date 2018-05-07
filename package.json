@@ -1,6 +1,6 @@
 {
   "name": "react-ga-gtm",
-  "version": "2.5.1-beta",
+  "version": "2.5.1",
   "description": "React Google Analytics Module.",
   "main": "dist/react-ga.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "types": "./types/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:react-ga/react-ga"
+    "url": "git@github.com:Tap30/react-ga-gtm"
   },
   "keywords": [
     "React",
@@ -30,9 +30,9 @@
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/react-ga/react-ga/issues"
+    "url": "https://github.com/Tap30/react-ga-gtm/issues"
   },
-  "homepage": "https://github.com/react-ga/react-ga",
+  "homepage": "https://github.com/Tap30/react-ga-gtm",
   "optionalDependencies": {
     "prop-types": "^15.6.0",
     "react": "^15.6.2 || ^16.0"

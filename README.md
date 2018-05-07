@@ -1,9 +1,9 @@
-# react-ga
-### React Google Analytics Module
+# react-ga-gtm
+### React Google Analytics Module / Supports GTM
 
-[![Build Status](https://img.shields.io/travis/react-ga/react-ga/master.svg?style=flat-square)](https://travis-ci.org/react-ga/react-ga)
-[![npm version](https://img.shields.io/npm/v/react-ga.svg?style=flat-square)](https://www.npmjs.com/package/react-ga)
-[![npm downloads](https://img.shields.io/npm/dm/react-ga.svg?style=flat-square)](https://www.npmjs.com/package/react-ga)
+[![Build Status](https://img.shields.io/travis/Tap30/react-ga-gtm/master.svg?style=flat-square)](https://travis-ci.org/react-ga/react-ga)
+[![npm version](https://img.shields.io/npm/v/react-ga-gtm.svg?style=flat-square)](https://www.npmjs.com/package/react-ga)
+[![npm downloads](https://img.shields.io/npm/dm/react-ga-gtm.svg?style=flat-square)](https://www.npmjs.com/package/react-ga)
 
 This is a JavaScript module that can be used to include Google Analytics tracking code in a website or app that uses [React](https://facebook.github.io/react/) for its front-end codebase. It does not currently use any React code internally, but has been written for use with a number of Mozilla Foundation websites that are using React, as a way to standardize our GA Instrumentation across projects.
 
@@ -11,7 +11,7 @@ It is designed to work with the latest version of Google Analytics, [Universal A
 
 This module is mildly opinionated in how we instrument tracking within our front-end code. Our API is slightly more verbose than the core Google Analytics library, in the hope that the code is easier to read and understand for our engineers. See examples below.
 
-If you use `react-ga` too, we'd love your feedback. Feel free to file [issues, ideas and pull requests against this repo](https://github.com/react-ga/react-ga/issues).
+If you use `react-ga` too, we'd love your feedback. Feel free to file [issues, ideas and pull requests against this repo](https://github.com/Tap30/react-ga-gtm/issues).
 
 ## Installation
 
@@ -50,7 +50,7 @@ When included as a script tag, a variable `ReactGA` is exposed in the global sco
 <!-- The ReactDOM Library -->
 <script src="https://unpkg.com/react-dom@15.5.0/dist/react-dom.min.js"></script>
 <!-- ReactGA library -->
-<script src="/path/to/bower_components/react-ga/dist/react-ga.min.js"></script>
+<script src="/path/to/bower_components/react-ga-gtm/dist/react-ga.min.js"></script>
 
 <script>
   ReactGA.initialize('UA-000000-01', { debug: true });
@@ -69,7 +69,7 @@ You can safely upgrade to `2.x` as there are no breaking changes. The main new f
 ## Community Components
 
 While some convenience components are included inside the package, some are specific to each application.
-A community curated list of these is available in the wiki: https://github.com/react-ga/react-ga/wiki/Community-Components. Feel free to add any you have found useful.
+A community curated list of these is available in the wiki: https://github.com/Tap30/react-ga-gtm/wiki/Community-Components. Feel free to add any you have found useful.
 
 ## API
 
@@ -270,7 +270,7 @@ ReactGA.outboundLink({
 |Value|Notes|
 |------|-----|
 |args.label|`String`. Required. Description of where the outbound link points to. Either as a URL, or a string.|
-|hitCallback|`function`. The react-ga implementation accounts for the possibility that GA servers are down, or GA is blocked, by using a fallback 250ms timeout. See [notes in GA Dev Guide](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hitCallback)|
+|hitCallback|`function`. The react-ga-gtm implementation accounts for the possibility that GA servers are down, or GA is blocked, by using a fallback 250ms timeout. See [notes in GA Dev Guide](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hitCallback)|
 
 ### `<OutboundLink>` Component
 
@@ -279,7 +279,7 @@ Outbound links can directly be used as a component in your React code and the ev
 ###### Example
 
 ```js
-var ReactGA = require('react-ga');
+var ReactGA = require('react-ga-gtm');
 
 render() {
   return (
