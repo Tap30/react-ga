@@ -116,7 +116,7 @@ function trim(s) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.testModeAPI = exports.OutboundLink = exports.plugin = undefined;
+exports.GoogleTagManagerIframe = exports.testModeAPI = exports.OutboundLink = exports.plugin = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -168,6 +168,10 @@ var _testModeAPI2 = _interopRequireDefault(_testModeAPI);
 var _OutboundLink = __webpack_require__(11);
 
 var _OutboundLink2 = _interopRequireDefault(_OutboundLink);
+
+var _GoogleTagManagerIframe = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/GoogleTagManagerIframe\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _GoogleTagManagerIframe2 = _interopRequireDefault(_GoogleTagManagerIframe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -777,6 +781,7 @@ _OutboundLink2.default.origTrackLink = _OutboundLink2.default.trackLink;
 _OutboundLink2.default.trackLink = outboundLink;
 var OutboundLink = exports.OutboundLink = _OutboundLink2.default;
 var testModeAPI = exports.testModeAPI = _testModeAPI2.default;
+var GoogleTagManagerIframe = exports.GoogleTagManagerIframe = _GoogleTagManagerIframe2.default;
 
 exports.default = {
   initialize: initialize,
@@ -791,6 +796,7 @@ exports.default = {
   plugin: plugin,
   outboundLink: outboundLink,
   OutboundLink: OutboundLink,
+  GoogleTagManagerIframe: GoogleTagManagerIframe,
   testModeAPI: _testModeAPI2.default
 };
 
