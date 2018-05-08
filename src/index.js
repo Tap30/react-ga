@@ -19,6 +19,7 @@ import warn from './utils/console/warn';
 import log from './utils/console/log';
 import TestModeAPI from './utils/testModeAPI';
 import UnboundOutboundLink from './components/OutboundLink';
+import GoogleTagManagerIframe from './components/GoogleTagManagerIframe';
 
 let _debug = false;
 let _titleCase = true;
@@ -586,5 +587,6 @@ export default {
   plugin,
   outboundLink,
   OutboundLink,
+  GoogleTagManagerIframe,
   testModeAPI: TestModeAPI
 };

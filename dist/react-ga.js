@@ -293,9 +293,8 @@ function initialize(configsOrTrackingId, options) {
     var trackingId = getTrackingId(configsOrTrackingId);
     if (options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object' && options.gtmTrackingId) {
       (0, _loadGTM2.default)(trackingId, options);
-    } else {
-      (0, _loadGA2.default)(options);
     }
+    (0, _loadGA2.default)(options);
   }
 
   _alwaysSendToDefaultTracker = options && typeof options.alwaysSendToDefaultTracker === 'boolean' ? options.alwaysSendToDefaultTracker : true;
