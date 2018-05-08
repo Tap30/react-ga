@@ -111,9 +111,8 @@ export function initialize(configsOrTrackingId, options) {
     const trackingId = getTrackingId(configsOrTrackingId);
     if (options && typeof options === 'object' && options.gtmTrackingId) {
       loadGTM(trackingId, options);
-    } else {
-      loadGA(options);
     }
+    loadGA(options);
   }
 
   _alwaysSendToDefaultTracker = (options && typeof options.alwaysSendToDefaultTracker === 'boolean')
