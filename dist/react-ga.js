@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("react"), require("prop-types")) : factory(root["react"], root["prop-types"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_13__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -90,6 +90,18 @@ function warn(s) {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107,7 +119,7 @@ function trim(s) {
 }
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -116,7 +128,7 @@ function trim(s) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.GoogleTagManagerIframe = exports.testModeAPI = exports.OutboundLink = exports.plugin = undefined;
+exports.GoogleTagManagerScript = exports.GoogleTagManagerIframe = exports.testModeAPI = exports.OutboundLink = exports.plugin = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -133,23 +145,23 @@ exports.event = event;
 exports.exception = exception;
 exports.outboundLink = outboundLink;
 
-var _format2 = __webpack_require__(3);
+var _format2 = __webpack_require__(5);
 
 var _format3 = _interopRequireDefault(_format2);
 
-var _removeLeadingSlash = __webpack_require__(6);
+var _removeLeadingSlash = __webpack_require__(8);
 
 var _removeLeadingSlash2 = _interopRequireDefault(_removeLeadingSlash);
 
-var _trim = __webpack_require__(1);
+var _trim = __webpack_require__(3);
 
 var _trim2 = _interopRequireDefault(_trim);
 
-var _loadGA = __webpack_require__(7);
+var _loadGA = __webpack_require__(9);
 
 var _loadGA2 = _interopRequireDefault(_loadGA);
 
-var _loadGTM = __webpack_require__(8);
+var _loadGTM = __webpack_require__(10);
 
 var _loadGTM2 = _interopRequireDefault(_loadGTM);
 
@@ -157,21 +169,25 @@ var _warn = __webpack_require__(0);
 
 var _warn2 = _interopRequireDefault(_warn);
 
-var _log = __webpack_require__(9);
+var _log = __webpack_require__(11);
 
 var _log2 = _interopRequireDefault(_log);
 
-var _testModeAPI = __webpack_require__(10);
+var _testModeAPI = __webpack_require__(12);
 
 var _testModeAPI2 = _interopRequireDefault(_testModeAPI);
 
-var _OutboundLink = __webpack_require__(11);
+var _OutboundLink = __webpack_require__(13);
 
 var _OutboundLink2 = _interopRequireDefault(_OutboundLink);
 
-var _GoogleTagManagerIframe = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/GoogleTagManagerIframe\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var _GoogleTagManagerIframe = __webpack_require__(14);
 
 var _GoogleTagManagerIframe2 = _interopRequireDefault(_GoogleTagManagerIframe);
+
+var _GoogleTagManagerScript = __webpack_require__(15);
+
+var _GoogleTagManagerScript2 = _interopRequireDefault(_GoogleTagManagerScript);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -297,8 +313,9 @@ function initialize(configsOrTrackingId, options) {
     var trackingId = getTrackingId(configsOrTrackingId);
     if (options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object' && options.gtmTrackingId) {
       (0, _loadGTM2.default)(trackingId, options);
+    } else {
+      (0, _loadGA2.default)(options);
     }
-    (0, _loadGA2.default)(options);
   }
 
   _alwaysSendToDefaultTracker = options && typeof options.alwaysSendToDefaultTracker === 'boolean' ? options.alwaysSendToDefaultTracker : true;
@@ -782,6 +799,7 @@ _OutboundLink2.default.trackLink = outboundLink;
 var OutboundLink = exports.OutboundLink = _OutboundLink2.default;
 var testModeAPI = exports.testModeAPI = _testModeAPI2.default;
 var GoogleTagManagerIframe = exports.GoogleTagManagerIframe = _GoogleTagManagerIframe2.default;
+var GoogleTagManagerScript = exports.GoogleTagManagerScript = _GoogleTagManagerScript2.default;
 
 exports.default = {
   initialize: initialize,
@@ -797,11 +815,12 @@ exports.default = {
   outboundLink: outboundLink,
   OutboundLink: OutboundLink,
   GoogleTagManagerIframe: GoogleTagManagerIframe,
+  GoogleTagManagerScript: GoogleTagManagerScript,
   testModeAPI: _testModeAPI2.default
 };
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -812,11 +831,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = format;
 
-var _mightBeEmail = __webpack_require__(4);
+var _mightBeEmail = __webpack_require__(6);
 
 var _mightBeEmail2 = _interopRequireDefault(_mightBeEmail);
 
-var _toTitleCase = __webpack_require__(5);
+var _toTitleCase = __webpack_require__(7);
 
 var _toTitleCase2 = _interopRequireDefault(_toTitleCase);
 
@@ -842,7 +861,7 @@ function format(s, titleCase) {
 }
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -861,7 +880,7 @@ function mightBeEmail(s) {
 }
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -872,7 +891,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = toTitleCase;
 
-var _trim = __webpack_require__(1);
+var _trim = __webpack_require__(3);
 
 var _trim2 = _interopRequireDefault(_trim);
 
@@ -899,7 +918,7 @@ function toTitleCase(string) {
 }
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -918,7 +937,7 @@ function removeLeadingSlash(string) {
 }
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -945,7 +964,7 @@ exports.default = function (options) {
 };
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -976,7 +995,7 @@ exports.default = function (gaTrackingId, options) {
 };
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -991,7 +1010,7 @@ function log(s) {
 }
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1014,7 +1033,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1028,11 +1047,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(12);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(13);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1125,16 +1144,91 @@ OutboundLink.trackLink = function () {
 exports.default = OutboundLink;
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports) {
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_12__;
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = GoogleTagManagerIframe;
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* eslint-disable react/jsx-filename-extension */
+function GoogleTagManagerIframe(props) {
+  return _react2.default.createElement(
+    'noscript',
+    null,
+    _react2.default.createElement('iframe', {
+      title: 'googleTagManagerIframe',
+      src: 'https://' + props.gtmHost + '/ns.html?id=' + props.gtmTrackingId,
+      height: '0',
+      width: '0',
+      style: { display: 'none', visibility: 'hidden' }
+    })
+  );
+}
+
+GoogleTagManagerIframe.propTypes = {
+  gtmHost: _propTypes2.default.string,
+  gtmTrackingId: _propTypes2.default.string.isRequired
+};
+
+GoogleTagManagerIframe.defaultProps = {
+  gtmHost: 'www.googletagmanager.com'
+};
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports) {
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_13__;
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getGoogleTagManagerScript = undefined;
+exports.default = GoogleTagManagerScript;
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* eslint-disable react/jsx-filename-extension,max-len,react/no-danger */
+var getGoogleTagManagerScript = exports.getGoogleTagManagerScript = function getGoogleTagManagerScript(gtmHost, gtmTrackingId) {
+  return '(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':\nnew Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],\nj=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=\n\'https://' + gtmHost + '/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);\n})(window,document,\'script\',\'dataLayer\',\'' + gtmTrackingId + '\');';
+};
+
+function GoogleTagManagerScript(props) {
+  return _react2.default.createElement('script', { dangerouslySetInnerHTML: { __html: getGoogleTagManagerScript(props.gtmHost, props.gtmTrackingId) } });
+}
+
+GoogleTagManagerScript.propTypes = {
+  gtmHost: _propTypes2.default.string,
+  gtmTrackingId: _propTypes2.default.string.isRequired
+};
+
+GoogleTagManagerScript.defaultProps = {
+  gtmHost: 'www.googletagmanager.com'
+};
 
 /***/ })
 /******/ ]);

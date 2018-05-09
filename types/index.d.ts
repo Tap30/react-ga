@@ -1,4 +1,4 @@
-// Type definitions for react-ga 2.4
+// Type definitions for react-ga-gtm 2.5.3
 // Project: https://github.com/react-ga/react-ga
 // Definitions by: Tim Aldridge <https://github.com/telshin>
 //                 Philip Karpiak <https://github.com/eswat>

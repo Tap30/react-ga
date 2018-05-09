@@ -3,11 +3,11 @@ import * as ga from "./index";
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-describe("Testing react-ga initialize object", () => {
-    it("Able to initialize react-ga object", () => {
+describe("Testing react-ga-gtm initialize object", () => {
+    it("Able to initialize react-ga-gtm object", () => {
         ga.initialize("UA-65432-1");
     });
-    it("Able to initailize react-ga object", () => {
+    it("Able to initailize react-ga-gtm object", () => {
         const options: ga.InitializeOptions = {
             debug: true,
         };
@@ -23,7 +23,7 @@ describe("Testing react-ga initialize object", () => {
     });
 });
 
-describe("Testing react-ga pageview calls", () => {
+describe("Testing react-ga-gtm pageview calls", () => {
     it("Able to make pageview calls", () => {
         ga.initialize("UA-65432-1");
         ga.pageview("http://telshin.com");
@@ -43,7 +43,7 @@ describe("Testing react-ga pageview calls", () => {
     });
 });
 
-describe("Testing react-ga modal calls", () => {
+describe("Testing react-ga-gtm modal calls", () => {
     it("Able to make modal calls", () => {
         ga.initialize("UA-65432-1");
 
@@ -58,11 +58,11 @@ describe("Testing react-ga modal calls", () => {
     });
 });
 
-describe("Testing react-ga event calls", () => {
+describe("Testing react-ga-gtm event calls", () => {
     const options: ga.EventArgs = {
         category: "Test",
         action: "CI",
-        label: "Running Jasmine tests for react-ga typscript library",
+        label: "Running Jasmine tests for react-ga-gtm typscript library",
         value: 4,
         nonInteraction: true,
     };
@@ -82,7 +82,7 @@ describe("Testing react-ga event calls", () => {
     });
 });
 
-describe("Testing react-ga set calls", () => {
+describe("Testing react-ga-gtm set calls", () => {
     const fieldObject: ga.FieldsObject = {
         page: "/users"
     };
@@ -102,7 +102,7 @@ describe("Testing react-ga set calls", () => {
     });
 });
 
-describe("Testing react-ga v2.1.2", () => {
+describe("Testing react-ga-gtm v2.1.2", () => {
     it("Able to make ga calls", () => {
         ga.ga();
     });

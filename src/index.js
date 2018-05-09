@@ -20,6 +20,7 @@ import log from './utils/console/log';
 import TestModeAPI from './utils/testModeAPI';
 import UnboundOutboundLink from './components/OutboundLink';
 import GoogleTagManagerIframeComponent from './components/GoogleTagManagerIframe';
+import GoogleTagManagerScriptComponent from './components/GoogleTagManagerScript';
 
 let _debug = false;
 let _titleCase = true;
@@ -112,8 +113,9 @@ export function initialize(configsOrTrackingId, options) {
     const trackingId = getTrackingId(configsOrTrackingId);
     if (options && typeof options === 'object' && options.gtmTrackingId) {
       loadGTM(trackingId, options);
+    } else {
+      loadGA(options);
     }
-    loadGA(options);
   }
 
   _alwaysSendToDefaultTracker = (options && typeof options.alwaysSendToDefaultTracker === 'boolean')
@@ -574,6 +576,7 @@ UnboundOutboundLink.trackLink = outboundLink;
 export const OutboundLink = UnboundOutboundLink;
 export const testModeAPI = TestModeAPI;
 export const GoogleTagManagerIframe = GoogleTagManagerIframeComponent;
+export const GoogleTagManagerScript = GoogleTagManagerScriptComponent;
 
 export default {
   initialize,
@@ -589,5 +592,6 @@ export default {
   outboundLink,
   OutboundLink,
   GoogleTagManagerIframe,
+  GoogleTagManagerScript,
   testModeAPI: TestModeAPI
 };
